@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
+
 
 public class DB {
 
@@ -50,7 +50,7 @@ public class DB {
 	    }
 	}	
 		
-	public static void closeStatement(Statement st) {
+	public static void closeStatement(java.sql.PreparedStatement st) {
 			if(st != null) {
 				try {
 					conn.close();
