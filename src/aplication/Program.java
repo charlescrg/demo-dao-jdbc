@@ -34,9 +34,20 @@ public class Program {
 		}
 		
 	    System.out.println("\n======TESTE 4: Seller Insert========");
-		Seller newSeller = new Seller(null,"charles","charles@gmail.com",new Date(0), 3000.0, department);
+		Seller newSeller = new Seller(null,"charlie","charles@gmail.com",new Date(0), 3000.0, department);
 		sellerDao.insert(newSeller);
 		System.out.println("Inserted! new id = " + newSeller.getId());
+		
+		System.out.println("\n======TESTE 5: Seller Update========");
+		seller  = sellerDao.findById(9);
+		seller.setName("Leticia silva");
+		sellerDao.update(seller);
+		System.out.println("update concluido");
+		
+		System.out.println("\n======TESTE 6: Seller delete========");
+		int id  = 10;
+		sellerDao.deleteById(id);
+		System.out.println("delete concluido");
 		
 
 

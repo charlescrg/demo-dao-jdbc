@@ -62,8 +62,6 @@ public class SellerDaoJDBC implements SellerDao{
 			throw new DbException(e.getMessage());
 		}
 		finally {
-			DB.closeStatement(st);
-			DB.closeConnection();
 			
 		}
 		
@@ -71,13 +69,53 @@ public class SellerDaoJDBC implements SellerDao{
 
 	@Override
 	public void update(Seller obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			
+			st = (PreparedStatement) conn.prepareStatement(
+					"UPDATE `seller`" 
+					+ "SET `Name` = ?, `Email` = ?, `BirthDate` = ?, `DepartmentId` = ? WHERE `Id` = ?");
+					
+			st.setString(1, obj.getName());
+			st.setString(2, obj.getEmail());
+			st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
+			//st.setDouble(4, obj.getBaseSalary());
+			st.setInt(4, obj.getDepartment().getId());
+			st.setInt(5, obj.getId());
+					
+			st.executeUpdate();
+		
+			
+		}
+		catch(SQLException e){
+			throw new DbException(e.getMessage());
+		}
+		finally {
+		}
 		
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			
+			st = (PreparedStatement) conn.prepareStatement(
+					"DELETE FROM `seller` WHERE `Id` = ?");
+					
+			st.setInt(1, id);
+								
+			st.executeUpdate();
+		
+			
+		}
+		catch(SQLException e){
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
 		
 	}
 
@@ -105,7 +143,6 @@ public class SellerDaoJDBC implements SellerDao{
 				throw new DbException(e.getMessage());
 			}
 		    finally{
-		    	
 		    }
 		
 	}
@@ -160,7 +197,6 @@ public class SellerDaoJDBC implements SellerDao{
 				throw new DbException(e.getMessage());
 			}
 		    finally{
-		    	
 		    }
 	}
 
@@ -196,7 +232,6 @@ public class SellerDaoJDBC implements SellerDao{
 				throw new DbException(e.getMessage());
 			}
 		    finally{
-		    	
 		    }
 	}
 	
